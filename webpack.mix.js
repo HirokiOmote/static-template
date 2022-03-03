@@ -8,6 +8,7 @@ const postcssCustomMedia = require('postcss-custom-media');
 const cpx = require('cpx');
 
 require('laravel-mix-eslint');
+require('laravel-mix-ejs');
 
 const sourcesPath = path.resolve('src');
 const outputPath = mix.inProduction() ? 'dist' : 'public';
@@ -23,6 +24,10 @@ if (process.env.NODE_ENV === 'watch') {
 } else {
   cpx.copy(copyFiles, outputPath);
 }
+
+mix
+  .setPublicPath(outputPath)
+  .ejs(`${sourcesPath}/**/*.ejs`, outputPath, {}, { base: sourcesPath, partials: `${sourcesPath}/partials` });
 
 mix
   .setPublicPath(outputPath)
@@ -67,11 +72,9 @@ if (mix.inProduction()) {
     ]
   });
 } else {
-  mix
-    .sourceMaps()
-    .webpackConfig({
-      devtool: 'inline-source-map'
-    });
+  mix.sourceMaps().webpackConfig({
+    devtool: 'inline-source-map'
+  });
 }
 
 mix.disableNotifications();
