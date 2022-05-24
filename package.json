@@ -50,8 +50,5 @@
 		"stylelint-order": "^2.0.0",
 		"stylelint-webpack-plugin": "^0.10.5",
 		"vue-template-compiler": "^2.6.6"
-	},
-	"volta": {
-		"node": "14.19.0"
 	}
 }
